@@ -75,10 +75,10 @@ function Form() {
     console.log(JSON.stringify(formData))
 
     return (
-        <div className="max-w-md mx-auto mt-8">
-            <form onSubmit={handleSubmit} className="bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
+        <div className="min-h-screen min-w-screen flex bg-black items-center justify-center">
+            <form onSubmit={handleSubmit} className="bg-purple-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="rank">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="rank">
                         Rank
                     </label>
                     <input
@@ -87,12 +87,12 @@ function Form() {
                         name="rank"
                         value={formData.rank}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter rank"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="suit">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="suit">
                         Suit
                     </label>
                     <select
@@ -100,7 +100,7 @@ function Form() {
                         name="suit"
                         value={formData.suit}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                     >
                         <option value="" disabled>Select a suit</option>
                         {suitOptions.map((option) => (
@@ -111,7 +111,7 @@ function Form() {
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="color">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="color">
                         Color
                     </label>
                     <select
@@ -119,7 +119,7 @@ function Form() {
                         name="color"
                         value={formData.color}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                     >
                         {colorOptions.map((option) => (
                             <option key={option} value={option}>
@@ -129,7 +129,7 @@ function Form() {
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="role">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="role">
                         Role
                     </label>
                     <input
@@ -138,12 +138,12 @@ function Form() {
                         name="role"
                         value={formData.role}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter role"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="number">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="number">
                         Number
                     </label>
                     <input
@@ -152,12 +152,12 @@ function Form() {
                         name="number"
                         value={formData.number}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter number"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="entity">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="entity">
                         Entity
                     </label>
                     <select
@@ -165,7 +165,7 @@ function Form() {
                         name="entity"
                         value={formData.entity}
                         onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                     >
                         {entityOptions.map((option) => (
                             <option key={option} value={option}>
