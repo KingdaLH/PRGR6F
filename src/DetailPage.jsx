@@ -1,9 +1,12 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import {Link, useParams} from "react-router-dom";
+
+import {ContextApi} from './ContextApi.jsx';
 
 function DetailPage() {
     const {id} = useParams();
     const [detail, setDetail] = useState({});
+    const {details, setDetails} = useContext(ContextApi);
   
     useEffect(() => {
         async function getDetail() {
@@ -27,10 +30,12 @@ function DetailPage() {
             .catch(console.error);
         }, []);
   
+        setDetails(detail);
+
         return (
-    <div className="min-h-screen min-w-screen flex bg-gray-100">
-        <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
-            <h1 className="text-2xl font-semibold mb-4">Card List</h1>
+        <div className="min-h-screen min-w-screen flex bg-gray-100">
+            <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
+                <h1 className="text-2xl font-semibold mb-4">Card Details</h1>
             <table className="w-full table-auto">
                 <thead>
                 <tr>
@@ -40,7 +45,7 @@ function DetailPage() {
                     <th className="px-4 py-2">Role</th>
                     <th className="px-4 py-2">Num</th>
                     <th className="px-4 py-2">Entity</th>
-                    <th className="px-4 py-2">Details</th>
+                    <th className="px-4 py-2">Update</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,9 +56,15 @@ function DetailPage() {
                         <td className="border px-4 py-2">{detail.role}</td>
                         <td className="border px-4 py-2">{detail.num}</td>
                         <td className="border px-4 py-2">{detail.entity}</td>
-                        <td className="border px-4 py-2 text-blue-500 underline"><Link to={`/cards/${detail.id}`}>
-                            Details
-                        </Link>
+                        <td className="border px-4 py-2 text-blue-500 underline">
+                            <Link to={`/cards/update/${detail.id}`}>
+                                Update
+                            </Link>
+                        </td>
+                        <td className="border px-4 py-2 text-blue-500 underline">
+                            <Link to={`/cards/update/${detail.id}`}>
+                                Delete
+                            </Link>
                         </td>
                     </tr>
                 </tbody>

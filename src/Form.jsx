@@ -1,10 +1,12 @@
-import App from "./App.jsx";
-import React, { useState } from 'react';
+import {useState, useContext} from 'react'
+import {useParams} from "react-router-dom";
+import SaveData from "./SaveData.jsx";
+
+import {ContextApi} from './ContextApi.jsx';
 
 const colorOptions = ['Yellow', 'Green', 'Purple', 'Blue'];
 const entityOptions = ['Shub-Niggurath', 'King in Yellow', 'Cthulhu', 'Nyarlathotep'];
 const suitOptions = ['Diamonds', 'Clubs', 'Spades', 'Hearts'];
-
 const initialFormData = {
     rank: '',
     suit: '',
@@ -13,10 +15,24 @@ const initialFormData = {
     num: '',
     entity: 'Shub-Niggurath',
 };
+let mode = "create";
+let buttonText = "Create";
 
 function Form() {
+    const {mode} = useParams();
+    const {id} = useParams();
+
+    console.log(mode);
+    console.log(mode === "update");
+    console.log(id);
 
     const [formData, setFormData] = useState(initialFormData);
+    const [detail, setDetail] = useState({});
+    const {details, setDetails} = useContext(ContextApi);
+
+    const handleSubmit = SaveData(
+        {mode, id}
+    );
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,10 +42,37 @@ function Form() {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form submitted:', formData);
-    };
+    if (mode === "update") {
+        buttonText = "Update";
+
+        //setDetail(details);
+
+        console.log(JSON.stringify(details));
+
+        // useEffect(() => {
+        //     async function getDetail() {
+        //         const response = await fetch("http://185.228.81.142:8080/cards/" + id, {
+        //             method: "GET",
+        //                 headers: {
+        //                     "Accept": "application/json",
+        //                     "Content-Type": "application/json",
+        //                 }
+        //             });
+
+        //             if (!response.ok) {
+        //                 throw new Error("Response is not okay");
+        //             }
+            
+        //             const data = await response.json();
+        //             console.log(data);
+        //             setDetail(data);
+        //         }
+        //         getDetail()
+        //         .catch(console.error);
+        //     }, []);
+    }
+
+    console.log(JSON.stringify(formData))
 
     return (
         <div className="max-w-md mx-auto mt-8">
@@ -136,12 +179,11 @@ function Form() {
                         type="submit"
                         className="bg-purple-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Create
+                        {buttonText}
                     </button>
                 </div>
             </form>
         </div>
     );
 }
-
 export default Form

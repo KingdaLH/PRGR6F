@@ -30,7 +30,6 @@ function ListPage() {
             <div className="min-h-screen min-w-screen bg-gray-100 flex items-center justify-center">
                 <div className="bg-black p-6 rounded-lg shadow-md w-full">
                     <h1 className="text-2xl font-semibold mb-4 text-white">Card List</h1>
-
                     {list && list.items.map((item) => (
                         <div key={item.id} className="bg-purple-300 mb-4 p-4 rounded shadow-md hover:shadow-lg">
                             <div className="mb-2">

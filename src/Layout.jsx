@@ -6,7 +6,7 @@ import Navbar from "./Navbar.jsx";
 const Layout = ({ children }) => {
     const location = useLocation();
     console.log("Layout Component Rendering:", location.pathname);
-
+    
     return (
         <div>
             <Navbar />
