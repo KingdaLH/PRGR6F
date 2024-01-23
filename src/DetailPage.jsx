@@ -28,7 +28,7 @@ function DetailPage() {
         }, []);
   
         return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen min-w-screen flex bg-gray-100">
         <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
             <h1 className="text-2xl font-semibold mb-4">Card List</h1>
             <table className="w-full table-auto">

@@ -1,25 +1,31 @@
 import './App.css'
-import {
-  createBrowserRouter, RouterProvider
-} from "react-router-dom";
+import {createBrowserRouter, Navigate, Route, RouterProvider, Routes} from "react-router-dom";
 import ListPage from './ListPage.jsx'
 import DetailPage from './DetailPage.jsx'
-import Home from "./Home.jsx";
+import Form from "./Form.jsx";
+import Layout from './Layout';
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <ListPage/>,
+      path: '/',
+      element: <Navigate to="/cards" replace />,
     },
     {
-      path: "/cards/:id",
-      element: <DetailPage/>
-    }
+      path: '/cards/*',
+      element: (
+          <Layout>
+            <Routes>
+              <Route index element={<ListPage />} />
+              <Route path=":id" element={<DetailPage />} />
+              <Route path="create" element={<Form />} />
+            </Routes>
+          </Layout>
+      ),
+    },
   ]);
-  return (
-    <RouterProvider router={router}/>
-  )
+
+  return <RouterProvider router={router} />;
 }
 
 export default App

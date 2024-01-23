@@ -27,30 +27,25 @@ function ListPage() {
         }, []);
   
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100">
-                <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
-                    <h1 className="text-2xl font-semibold mb-4">Card List</h1>
-                    <table className="w-full table-auto">
-                        <thead>
-                        <tr>
-                            <th className="px-4 py-2">Rank</th>
-                            <th className="px-4 py-2">Suit</th>
-                            <th className="px-4 py-2">Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {list && list.items.map((item) => (
-                            <tr key={item.id} className="hover:bg-gray-500">
-                                <td className="border px-4 py-2">{item.rank}</td>
-                                <td className="border px-4 py-2">{item.suit}</td>
-                                <td className="border px-4 py-2 text-blue-500 underline"><Link to={`/cards/${item.id}`}>
+            <div className="min-h-screen min-w-screen bg-gray-100 flex items-center justify-center">
+                <div className="bg-black p-6 rounded-lg shadow-md w-full">
+                    <h1 className="text-2xl font-semibold mb-4 text-white">Card List</h1>
+
+                    {list && list.items.map((item) => (
+                        <div key={item.id} className="bg-purple-300 mb-4 p-4 rounded shadow-md hover:shadow-lg">
+                            <div className="mb-2">
+                                <span className="font-bold">Rank:</span> {item.rank}
+                            </div>
+                            <div className="mb-2">
+                                <span className="font-bold">Suit:</span> {item.suit}
+                            </div>
+                            <div className="text-blue-500 underline">
+                                <Link to={`/cards/${item.id}`}>
                                     Details
                                 </Link>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         );
