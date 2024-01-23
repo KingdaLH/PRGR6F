@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 
 function DetailPage() {
     const {id} = useParams();
-    const [detail, setDetail] = useState(null);
+    const [detail, setDetail] = useState({});
   
     useEffect(() => {
         async function getDetail() {
@@ -44,27 +44,18 @@ function DetailPage() {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        test {JSON.stringify(detail)} test2
-                    </td>
-                    <td>
-                        test {JSON.stringify(detail)} test2
-                    </td>
-
-                </tr>
-                    {/*<tr>*/}
-                    {/*    <td className="border px-4 py-2">{detail.rank}</td>*/}
-                    {/*    <td className="border px-4 py-2">{detail.suit}</td>*/}
-                    {/*    <td className="border px-4 py-2">{detail.color}</td>*/}
-                    {/*    <td className="border px-4 py-2">{detail.role}</td>*/}
-                    {/*    <td className="border px-4 py-2">{detail.num}</td>*/}
-                    {/*    <td className="border px-4 py-2">{detail.entity}</td>*/}
-                    {/*    <td className="border px-4 py-2 text-blue-500 underline"><Link to={`/cards/${detail.id}`}>*/}
-                    {/*        Details*/}
-                    {/*    </Link>*/}
-                    {/*    </td>*/}
-                    {/*</tr>*/}
+                    <tr>
+                        <td className="border px-4 py-2">{detail.rank}</td>
+                        <td className="border px-4 py-2">{detail.suit}</td>
+                        <td className="border px-4 py-2">{detail.color}</td>
+                        <td className="border px-4 py-2">{detail.role}</td>
+                        <td className="border px-4 py-2">{detail.num}</td>
+                        <td className="border px-4 py-2">{detail.entity}</td>
+                        <td className="border px-4 py-2 text-blue-500 underline"><Link to={`/cards/${detail.id}`}>
+                            Details
+                        </Link>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
