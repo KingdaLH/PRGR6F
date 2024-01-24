@@ -7,7 +7,7 @@ function DetailPage() {
     const {id} = useParams();
     const [detail, setDetail] = useState({});
     const {details, setDetails} = useContext(ContextApi);
-  
+
     useEffect(() => {
         async function getDetail() {
             const response = await fetch("http://185.228.81.142:8080/cards/" + id, {
@@ -33,6 +33,8 @@ function DetailPage() {
         setDetails(detail);
 
         return (
+
+
         <div className="min-h-screen min-w-screen flex bg-black items-center justify-center">
             <div className="bg-purple-300 p-6 rounded-lg shadow-md w-full max-w-screen-md">
                 <h1 className="text-2xl font-semibold mb-4">Card Details</h1>

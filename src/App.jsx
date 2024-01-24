@@ -8,6 +8,7 @@ import DeletePage from './DeletePage.jsx'
 
 import {useState} from 'react'
 import {ContextApi} from './ContextApi.jsx'
+import {Modal} from "./Modal.jsx";
 
 function App() {
   const [details, setDetails] = useState({});

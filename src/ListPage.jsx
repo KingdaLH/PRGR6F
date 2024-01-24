@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { URLModal, openModal } from 'react-url-modal';
 
 function ListPage() {
     const [list, setList] = useState(null);
