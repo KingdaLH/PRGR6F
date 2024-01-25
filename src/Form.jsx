@@ -6,29 +6,18 @@ import {ContextApi} from './ContextApi.jsx';
 
 const colorOptions = ['Yellow', 'Green', 'Purple', 'Blue'];
 const entityOptions = ['Shub-Niggurath', 'King in Yellow', 'Cthulhu', 'Nyarlathotep'];
-const suitOptions = ['Diamonds', 'Clubs', 'Spades', 'Hearts'];
-const initialFormData = {
-    rank: '',
-    suit: '',
-    color: 'Purple',
-    role: '',
-    num: '',
-    entity: 'Shub-Niggurath',
-};
+const suitOptions = ['diamonds', 'clubs', 'spades', 'hearts'];
 let mode = "create";
-let buttonText = "Create";
+let caption = "";
+let buttonText = "";
+let initialFormData = {};
 
 function Form() {
+    const {card} = useContext(ContextApi);
     const {mode} = useParams();
     const {id} = useParams();
 
-    console.log(mode);
-    console.log(mode === "update");
-    console.log(id);
-
-    const [formData, setFormData] = useState(initialFormData);
-    const [detail, setDetail] = useState({});
-    const {details, setDetails} = useContext(ContextApi);
+    console.log(mode)
 
     const handleSubmit = SaveData(
         {mode, id}
@@ -43,39 +32,38 @@ function Form() {
     };
 
     if (mode === "update") {
+        caption = "Card Details from Context"
         buttonText = "Update";
 
-        //setDetail(details);
-
-        console.log(JSON.stringify(details));
-
-        // useEffect(() => {
-        //     async function getDetail() {
-        //         const response = await fetch("http://185.228.81.142:8080/cards/" + id, {
-        //             method: "GET",
-        //                 headers: {
-        //                     "Accept": "application/json",
-        //                     "Content-Type": "application/json",
-        //                 }
-        //             });
-
-        //             if (!response.ok) {
-        //                 throw new Error("Response is not okay");
-        //             }
-            
-        //             const data = await response.json();
-        //             console.log(data);
-        //             setDetail(data);
-        //         }
-        //         getDetail()
-        //         .catch(console.error);
-        //     }, []);
+        initialFormData = {
+            rank: card.rank,
+            suit: card.suit,
+            color: card.color,
+            role: card.role,
+            num: card.num,
+            entity: card.entity,
+        };
+    }
+    else {
+        caption = "New Card";
+        buttonText = "Create";
+        
+        initialFormData = {
+            rank: '',
+            suit: 'diamonds',
+            color: 'Yellow',
+            role: '',
+            num: '',
+            entity: 'Shub-Niggurath',
+        };        
     }
 
-    console.log(JSON.stringify(formData))
+    const [formData, setFormData] = useState(initialFormData);
 
     return (
-        <div className="min-h-screen min-w-screen flex bg-black items-center justify-center">
+        <div className="wrapper">
+        <h1 className="text-2xl w-screen p-5 font-semibold text-white bg-black">{caption}</h1>
+        <div className="min-h-screen w-screen flex bg-black items-center justify-center">
             <form onSubmit={handleSubmit} className="bg-purple-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
                 <div className="mb-4">
                     <label className="block text-black text-sm font-bold mb-2" htmlFor="rank">
@@ -143,14 +131,14 @@ function Form() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-black text-sm font-bold mb-2" htmlFor="number">
+                    <label className="block text-black text-sm font-bold mb-2" htmlFor="num">
                         Number
                     </label>
                     <input
                         type="text"
-                        id="number"
-                        name="number"
-                        value={formData.number}
+                        id="num"
+                        name="num"
+                        value={formData.num}
                         onChange={handleChange}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter number"
@@ -183,6 +171,7 @@ function Form() {
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     );
 }

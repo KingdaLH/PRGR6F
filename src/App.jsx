@@ -11,7 +11,9 @@ import {ContextApi} from './ContextApi.jsx'
 import {Modal} from "./Modal.jsx";
 
 function App() {
-  const [details, setDetails] = useState({});
+  const [cardList, setCardList] = useState(null);
+  const [card, setCard] = useState({});
+  const [update, setUpdate] = useState(true);
 
   const router = createBrowserRouter([
     {
@@ -21,15 +23,15 @@ function App() {
     {
       path: '/cards/*',
       element: (
-          <Layout>
-            <Routes>
-              <Route index element={<ListPage />} />
-              <Route path=":id" element={<ContextApi.Provider value={{details, setDetails}}><DetailPage /></ContextApi.Provider>} />
-              <Route path="create" element={<Navigate to="/cards/create/0" replace />} />
-              <Route path=":mode/:id" element={<ContextApi.Provider value={{details, setDetails}}><Form /></ContextApi.Provider>} />
-              <Route path="delete/:id" element={<DeletePage/>} />
-            </Routes>
-          </Layout>
+        <Layout>
+          <Routes>
+            <Route index element={<ContextApi.Provider value={{cardList, setCardList, update, setUpdate}}><ListPage /></ContextApi.Provider>} />
+            <Route path=":id" element={<ContextApi.Provider value={{card, setCard}}><DetailPage /></ContextApi.Provider>} />
+            <Route path="create" element={<Navigate to="/cards/create/0" replace />} />
+            <Route path=":mode/:id" element={<ContextApi.Provider value={{card, setCard, update, setUpdate}}><Form /></ContextApi.Provider>} />
+            <Route path="delete/:id" element={<ContextApi.Provider value={{update, setUpdate}}><DeletePage /></ContextApi.Provider>} />
+          </Routes>
+        </Layout>
       ),
     },
   ]);

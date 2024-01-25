@@ -1,43 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {useContext, useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
+import {ContextApi} from './ContextApi';
+
+let caption = "";7
 
 function ListPage() {
+    const {cardList, setCardList, update, setUpdate} = useContext(ContextApi);
     const [list, setList] = useState(null);
     const [selectedRank, setSelectedRank] = useState("");
     const [selectedSuit, setSelectedSuit] = useState("");
-    const rankOptions = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
+    const rankOptions = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
     const suitOptions = ["diamonds", "hearts", "clubs", "spades"];
+
+    console.log(update);
 
     useEffect(() => {
         async function getList() {
-            try {
-                const response = await fetch('http://185.228.81.142:8080/cards', {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                });
+            if (update) {
+                caption = "Card List from fetch";
 
-                if (!response.ok) {
-                    throw new Error('Response is not okay');
+                const response = await fetch("http://185.228.81.142:8080/cards", {
+                    method: "GET",
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Response is not okay");
+                    }
+            
+                    const data = await response.json();
+                    console.log(data);
+                    setList(data);
+                    setCardList(data);
+                    setUpdate(false);
                 }
-
-                const data = await response.json();
-                setList(data);
-            } catch (error) {
-                console.error(error);
+                else
+                {
+                    caption = "Card List from Context";
+                    setList(cardList);
+                }
             }
-        }
-
-        getList();
-    }, []);
+            getList()
+            .catch(console.error);
+        }, []);
 
     const handleRankChange = (e) => {
+        caption = "Card List from Context";
         setSelectedRank(e.target.value);
     };
 
     const handleSuitChange = (e) => {
+        caption = "Card List from Context";
         setSelectedSuit(e.target.value);
     };
 
@@ -54,9 +70,6 @@ function ListPage() {
     return (
         <div className="wrapper">
             <div className="search-wrapper">
-                <label htmlFor="search-form">
-                    <span className="sr-only">Search card</span>
-                </label>
                 <select value={selectedRank} onChange={handleRankChange}
                         className="block w-screen appearance-none bg-amber-100 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500 focus:bg-amber-100 focus:shadow-outline">
                     <option value="">All Ranks</option>
@@ -72,6 +85,7 @@ function ListPage() {
                     ))}
                 </select>
             </div>
+            <h1 className="text-2xl font-semibold text-white bg-black">{caption}</h1>
             <div className="min-h-screen w-screen bg-black flex items-center justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto mt-4">
                     {filteredList.map((item) => (

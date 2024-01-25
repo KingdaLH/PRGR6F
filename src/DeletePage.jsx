@@ -1,7 +1,9 @@
-import {useEffect, useState} from 'react'
-import {Link, useParams} from "react-router-dom";
+import {useContext, useEffect} from 'react'
+import {ContextApi} from './ContextApi.jsx'
+import {useParams} from "react-router-dom";
 
 function DeletePage() {
+    const {setUpdate} = useContext(ContextApi);
     const {id} = useParams();
   
     useEffect(() => {
@@ -17,20 +19,21 @@ function DeletePage() {
                 if (!response.ok) {
                     throw new Error("Response is not okay");
                 }
-        
-                const data = await response.json();
-                console.log(data);
+
+                const data = await response.text()
+                setUpdate(true); 
+                location.href = "/"
             }
             deleteDetail()
             .catch(console.error);
         }, []);
-  
+
         return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
-            Deleted
-        </div>
-    </div>
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="text-white bg-black p-6 rounded-lg shadow-md w-full max-w-screen-md">
+                    Deleted
+                </div>
+            </div>
         );
     }
   

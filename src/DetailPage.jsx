@@ -6,7 +6,7 @@ import {ContextApi} from './ContextApi.jsx';
 function DetailPage() {
     const {id} = useParams();
     const [detail, setDetail] = useState({});
-    const {details, setDetails} = useContext(ContextApi);
+    const {setCard} = useContext(ContextApi);
 
     useEffect(() => {
         async function getDetail() {
@@ -25,19 +25,16 @@ function DetailPage() {
                 const data = await response.json();
                 console.log(data);
                 setDetail(data);
+                setCard(data);
             }
             getDetail()
             .catch(console.error);
         }, []);
-  
-        setDetails(detail);
 
         return (
-
-
         <div className="min-h-screen min-w-screen flex bg-black items-center justify-center">
             <div className="bg-purple-300 p-6 rounded-lg shadow-md w-full max-w-screen-md">
-                <h1 className="text-2xl font-semibold mb-4">Card Details</h1>
+            <h1 className="text-2xl font-semibold mb-4">Card Details from fetch</h1>
             <table className="w-full table-auto">
                 <thead>
                 <tr>
@@ -64,7 +61,7 @@ function DetailPage() {
                             </Link>
                         </td>
                         <td className="border px-4 py-2 text-blue-500 underline">
-                            <Link to={`/cards/update/${detail.id}`}>
+                            <Link to={`/cards/delete/${detail.id}`}>
                                 Delete
                             </Link>
                         </td>
