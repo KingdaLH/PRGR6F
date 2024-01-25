@@ -85,8 +85,8 @@ function ListPage() {
                     ))}
                 </select>
             </div>
-            <h1 className="text-2xl font-semibold text-white bg-black">{caption}</h1>
-            <div className="min-h-screen w-screen bg-black flex items-center justify-center">
+            <h1 className="text-2xl w-screen font-semibold text-white bg-black">{caption}</h1>
+            <div className="h-max w-screen bg-black flex items-center justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto mt-4">
                     {filteredList.map((item) => (
                         <div key={item.id} className="bg-purple-300 p-4 rounded shadow-md hover:shadow-lg">

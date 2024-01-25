@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <div>
             <Navbar />
             <TransitionGroup>
-                <CSSTransition key={location.key} classNames="fade" timeout={20000}>
+                <CSSTransition key={location.key} classNames="fade" timeout={500}>
                     <Routes location={location}>
                         <Route path="/*" element={children} />
                     </Routes>
