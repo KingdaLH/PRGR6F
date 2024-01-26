@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 import {ContextApi} from './ContextApi';
-import Records from './Records.jsx';
-import Pagination from './Pagination.jsx';
 
 let caption = "";
 
@@ -10,12 +9,8 @@ function ListPage() {
     const [list, setList] = useState(null);
     const [selectedRank, setSelectedRank] = useState("");
     const [selectedSuit, setSelectedSuit] = useState("");
-
-    const rankOptions = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    const rankOptions = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
     const suitOptions = ["diamonds", "hearts", "clubs", "spades"];
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage] = useState(10);
 
     console.log(update);
 
@@ -52,33 +47,28 @@ function ListPage() {
             .catch(console.error);
         }, []);
 
-        const handleRankChange = (e) => {
-            caption = "Card List from Context";
-            setSelectedRank(e.target.value);
-        };
-    
-        const handleSuitChange = (e) => {
-            caption = "Card List from Context";
-            setSelectedSuit(e.target.value);
-        };
-    
-        const filteredList = list && list.items ? list.items.filter((item) => {
-            const rankFilter = selectedRank ? item["rank"] === selectedRank : true;
-            const suitFilter = selectedSuit ? item["suit"] === selectedSuit : true;
-            return rankFilter && suitFilter;
-        }) : [];
-    
-        if (!list) {
-            return <div>Loading...</div>;
-        }
-    
-        const indexOfLastRecord = currentPage * recordsPerPage;
-        const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-        const currentRecords = filteredList.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = Math.ceil(filteredList.length / recordsPerPage);
+    const handleRankChange = (e) => {
+        caption = "Card List from Context";
+        setSelectedRank(e.target.value);
+    };
+
+    const handleSuitChange = (e) => {
+        caption = "Card List from Context";
+        setSelectedSuit(e.target.value);
+    };
+
+    const filteredList = list && list.items ? list.items.filter((item) => {
+        const rankFilter = selectedRank ? item["rank"] === selectedRank : true;
+        const suitFilter = selectedSuit ? item["suit"] === selectedSuit : true;
+        return rankFilter && suitFilter;
+    }) : [];
+
+    if (!list) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div className="wrapper bg-black w-screen">
+        <div className="wrapper">
             <div className="search-wrapper">
                 <select value={selectedRank} onChange={handleRankChange}
                         className="block w-screen appearance-none bg-amber-100 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500 focus:bg-amber-100 focus:shadow-outline">
@@ -95,15 +85,26 @@ function ListPage() {
                     ))}
                 </select>
             </div>
-            <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
-            <h1 className="text-2xl w-screen font-semibold text-white bg-black m5 p5">{caption}</h1>
-            <Records data={currentRecords}/>
+            <h1 className="text-2xl font-semibold text-white bg-black">{caption}</h1>
+            <div className="min-h-screen w-screen bg-black flex items-center justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto mt-4">
+                    {filteredList.map((item) => (
+                        <div key={item.id} className="bg-purple-300 p-4 rounded shadow-md hover:shadow-lg">
+                            <div className="mb-2">
+                                <span className="font-bold">Rank:</span> {item.rank}
+                            </div>
+                            <div className="mb-2">
+                                <span className="font-bold">Suit:</span> {item.suit}
+                            </div>
+                            <div className="text-amber-100 underline">
+                                <Link to={`/cards/${item.id}`}>Details</Link>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
-    )
+    );
 }
 
-export default ListPage
+export default ListPage;

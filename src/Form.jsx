@@ -61,9 +61,9 @@ function Form() {
     const [formData, setFormData] = useState(initialFormData);
 
     return (
-        <div className="wrapper">
-        <h1 className="text-2xl w-screen p-5 font-semibold text-white bg-black">{caption}</h1>
-        <div className="min-h-screen w-screen flex bg-black items-center justify-center">
+        <div className="wrapper bg-black w-screen">
+        <h1 className="text-2xl m5 p5 font-semibold text-white bg-black">{caption}</h1>
+        <div className="min-h-screen min-w-screen flex bg-black items-center justify-center">
             <form onSubmit={handleSubmit} className="bg-purple-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
                 <div className="mb-4">
                     <label className="block text-black text-sm font-bold mb-2" htmlFor="rank">
